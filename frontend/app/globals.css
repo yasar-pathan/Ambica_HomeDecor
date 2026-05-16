@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-cream: #F7F4EF;
+  --color-parchment: #EDE8DF;
+  --color-sand: #D8CCBA;
+  --color-warm-gray: #9A9186;
+  --color-taupe: #6B6057;
+  --color-charcoal: #2C2825;
+  --color-matte-black: #1A1714;
+  --color-gold-muted: #C4A882;
+  --ease-luxury: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+html { 
+  scroll-behavior: smooth; 
+  background: var(--color-cream); 
+}
+
+body { 
+  font-family: var(--font-body); 
+  color: var(--color-charcoal);
+  -webkit-font-smoothing: antialiased; 
+}
+
+::selection { 
+  background: var(--color-charcoal); 
+  color: var(--color-cream); 
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--color-parchment); }
+::-webkit-scrollbar-thumb { background: var(--color-sand); border-radius: 2px; }
+
+/* Focus ring for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--color-gold-muted);
+  outline-offset: 2px;
+}
+
+/* Base button animations */
+.btn-primary {
+  @apply bg-matte-black text-cream hover:bg-charcoal px-8 py-4 font-body text-sm tracking-widest uppercase transition-all duration-400 ease-luxury rounded-none;
+}
+
+.btn-outline {
+  @apply border border-charcoal text-charcoal hover:bg-charcoal hover:text-cream px-8 py-4 font-body text-sm tracking-widest uppercase transition-all duration-400 rounded-none;
+}
+
+.btn-ghost {
+  @apply text-taupe hover:text-charcoal underline-offset-4 hover:underline font-body text-sm tracking-wide transition-colors duration-300;
+}
+
+.btn-whatsapp {
+  @apply bg-[#25D366] text-white hover:bg-[#1da851] px-6 py-3 flex items-center gap-2 rounded-none font-body text-sm transition-colors duration-300;
+}
+
+/* Nav Link Underline */
+.nav-link {
+  @apply relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  right: 50%;
+  height: 1px;
+  background: var(--color-gold-muted);
+  transition: all 0.3s var(--ease-luxury);
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+  left: 0;
+  right: 0;
+}
+
+/* Masonry Fallback */
+.masonry-grid {
+  column-count: 3;
+  column-gap: 16px;
+}
+@media (max-width: 768px) {
+  .masonry-grid {
+    column-count: 2;
+  }
+}
+@media (max-width: 480px) {
+  .masonry-grid {
+    column-count: 1;
+  }
+}

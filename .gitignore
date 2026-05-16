@@ -1,0 +1,44 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Next.js / Frontend
+frontend/.next/
+frontend/out/
+frontend/build/
+
+# Environment Variables & Secrets
+.env
+.env.*
+!.env.example
+backend/.env
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# OS Files
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Build & Logs
+dist/
+build/
+*.log
+logs/
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Temporary Files
+scratch/
+.idea/
+.vscode/
