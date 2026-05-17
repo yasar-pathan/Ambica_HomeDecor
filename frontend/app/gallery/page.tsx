@@ -4,7 +4,7 @@ import SectionHeader from '@/components/ui/SectionHeader';
 import { getGallery } from '@/lib/api';
 import Image from 'next/image';
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 export default async function GalleryPage() {
   let images = [];

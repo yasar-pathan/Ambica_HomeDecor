@@ -5,7 +5,17 @@ const { successResponse, errorResponse } = require('../utils/apiResponse');
 const { uploadToCloudinary, deleteFromCloudinary } = require('../utils/uploadToCloudinary');
 
 const getCategories = tryCatch(async (req, res) => {
-  const categories = await Category.find({ isActive: true }).sort({ sortOrder: 1 });
+  const categories = await Category.find({ isActive: true }).sort({ sortOrder: 1 }).lean();
+  
+  for (let cat of categories) {
+    if (!cat.image || !cat.image.url) {
+      const product = await Product.findOne({ category: cat._id, isActive: true }).sort({ createdAt: -1 });
+      if (product && product.images && product.images.length > 0) {
+        cat.image = { url: product.images[0].url };
+      }
+    }
+  }
+  
   return successResponse(res, 200, 'Categories fetched successfully', categories);
 });
 

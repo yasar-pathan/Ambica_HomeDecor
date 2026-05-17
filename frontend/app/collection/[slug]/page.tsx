@@ -5,7 +5,7 @@ import { getProductBySlug } from '@/lib/api';
 import { notFound } from 'next/navigation';
 import { whatsappUrl } from '@/lib/utils';
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
   let product;

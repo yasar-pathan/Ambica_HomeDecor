@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getHomepage, getCategories, getFeaturedProducts, getTestimonials } from '@/lib/api';
 
-export const revalidate = 3600; // Cache for 1 hour
+export const revalidate = 60; // Cache for 1 minute
 
 export default async function Home() {
   let homepage, categories, featured, testimonials;
