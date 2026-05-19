@@ -14,7 +14,10 @@ const nextConfig = {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
   async rewrites() {
-    const envUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+    let envUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+    if (envUrl && !envUrl.startsWith('http')) {
+      envUrl = 'http://' + envUrl;
+    }
     const host = envUrl.replace(/\/api(\/v1)?\/?$/, '').replace(/\/+$/, '');
     return [
       {

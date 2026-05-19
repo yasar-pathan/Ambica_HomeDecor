@@ -2,7 +2,10 @@ import axios from 'axios';
 import { ProductQueryParams } from '@/types';
 
 const getBaseUrl = () => {
-  const envUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+  let envUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+  if (envUrl && !envUrl.startsWith('http')) {
+    envUrl = 'http://' + envUrl;
+  }
   // Normalize by stripping any trailing /api or /api/v1 so we can reliably append /api/v1
   const host = envUrl.replace(/\/api(\/v1)?\/?$/, '').replace(/\/+$/, '');
 
