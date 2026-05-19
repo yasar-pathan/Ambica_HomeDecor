@@ -55,6 +55,7 @@ export default function Footer() {
       </div>
       <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-center font-mono text-[10px] text-warm-gray uppercase tracking-widest gap-4">
         <span>© {new Date().getFullYear()} Ambica Home Decor. All rights reserved.</span>
+        <span>DEBUG API URL: {process.env.NEXT_PUBLIC_API_URL || 'NOT SET (DEFAULTS TO LOCALHOST)'}</span>
         <Link href="/admin/login" className="hover:text-gold-muted transition-colors">Staff Login</Link>
       </div>
     </footer>
