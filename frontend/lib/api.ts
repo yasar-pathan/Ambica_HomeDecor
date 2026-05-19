@@ -1,11 +1,19 @@
 import axios from 'axios';
 import { ProductQueryParams } from '@/types';
 
+const getBaseUrl = () => {
+  if (typeof window === 'undefined') {
+    // Server-side: Direct connection avoids relative URL errors and mixed content restrictions
+    return (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') + '/api/v1';
+  }
+  // Client-side: Use proxy in production to avoid mixed content (HTTPS to HTTP)
+  return process.env.NODE_ENV === 'production'
+    ? '/api/proxy'
+    : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') + '/api/v1';
+};
+
 const api = axios.create({
-  // In production, use the Next.js rewrite proxy to bypass HTTPS -> HTTP mixed content errors.
-  baseURL: process.env.NODE_ENV === 'production' 
-    ? '/api/proxy' 
-    : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') + '/api/v1',
+  baseURL: getBaseUrl(),
   headers: { 'Content-Type': 'application/json' },
   timeout: 15000,
 });
