@@ -1,7 +1,7 @@
 'use client';
 import { useQuery } from '@tanstack/react-query';
 import { getAdminStats, queryKeys } from '@/lib/api';
-import { Package, Inbox, Image as ImageIcon, MessageSquare } from 'lucide-react';
+import { Package, Inbox, Image as ImageIcon, MessageSquare, Users, Activity } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Dashboard() {
@@ -13,6 +13,8 @@ export default function Dashboard() {
   if (isLoading) return <div className="animate-pulse">Loading...</div>;
 
   const cards = [
+    { label: 'Live Staff/Users', value: stats?.liveVisitors || 0, icon: Activity, href: '#' },
+    { label: 'Unique Visitors', value: stats?.uniqueVisitors || 0, icon: Users, href: '#' },
     { label: 'Active Products', value: stats?.activeProducts || 0, icon: Package, href: '/admin/products' },
     { label: 'New Inquiries', value: stats?.newInquiries || 0, icon: Inbox, href: '/admin/inquiries' },
     { label: 'Gallery Images', value: stats?.totalGalleryImages || 0, icon: ImageIcon, href: '/admin/gallery' },
@@ -21,7 +23,7 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
         {cards.map(c => (
           <Link key={c.label} href={c.href} className="bg-white p-6 border border-sand/30 hover:border-gold-muted transition-colors flex items-center justify-between group">
             <div>

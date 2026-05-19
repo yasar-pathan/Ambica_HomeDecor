@@ -2,7 +2,10 @@ import axios from 'axios';
 import { ProductQueryParams } from '@/types';
 
 const api = axios.create({
-  baseURL: (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') + '/api/v1',
+  // In production, use the Next.js rewrite proxy to bypass HTTPS -> HTTP mixed content errors.
+  baseURL: process.env.NODE_ENV === 'production' 
+    ? '/api/proxy' 
+    : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') + '/api/v1',
   headers: { 'Content-Type': 'application/json' },
   timeout: 15000,
 });
