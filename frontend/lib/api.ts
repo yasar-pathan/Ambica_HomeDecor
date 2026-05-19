@@ -2,14 +2,18 @@ import axios from 'axios';
 import { ProductQueryParams } from '@/types';
 
 const getBaseUrl = () => {
+  const envUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+  // Normalize by stripping any trailing /api or /api/v1 so we can reliably append /api/v1
+  const host = envUrl.replace(/\/api(\/v1)?\/?$/, '').replace(/\/+$/, '');
+
   if (typeof window === 'undefined') {
     // Server-side: Direct connection avoids relative URL errors and mixed content restrictions
-    return (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') + '/api/v1';
+    return `${host}/api/v1`;
   }
   // Client-side: Use proxy in production to avoid mixed content (HTTPS to HTTP)
   return process.env.NODE_ENV === 'production'
     ? '/api/proxy'
-    : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') + '/api/v1';
+    : `${host}/api/v1`;
 };
 
 const api = axios.create({
