@@ -1,0 +1,31 @@
+name: Deploy Backend to Elastic Beanstalk
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**' # This ensures the action only runs if you change backend code!
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Create ZIP Deployment Package
+        run: |
+          cd backend
+          zip -r ../backend-deploy.zip . -x "node_modules/*" ".env"
+
+      - name: Deploy to Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: luxe-decor-api # Ensure this matches your AWS console
+          environment_name: Luxe-decor-api-env # Update this after creating the environment!
+          version_label: "backend-${{ github.sha }}"
+          region: us-east-1 # Change if your region is different
+          deployment_package: backend-deploy.zip
