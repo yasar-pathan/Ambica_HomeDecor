@@ -31,8 +31,7 @@ const seedDB = async () => {
 
     // Seed Categories
     const categories = [
-      'Wall Decor', 'Showpieces', 'Mirrors', 'Table Decor',
-      'Handmade Decor', 'Luxury Accessories', 'Modern Decor', 'Traditional Decor'
+      'Pillow Cover', 'Curtain', 'Wall Mural', 'Canvas Frame'
     ];
     for (const cat of categories) {
       const exists = await Category.findOne({ name: cat });
